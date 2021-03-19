@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react"
-import { Link } from "gatsby"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
@@ -12,7 +11,7 @@ require("firebase/firestore");
 
 const IndexPage = () => {
   const [items, setItems] = useState([]);
-  
+
   const getItems = () => {
     ApiManager.getAll()
       .then(setItems)

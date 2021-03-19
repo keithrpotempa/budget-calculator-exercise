@@ -5,7 +5,9 @@ export default {
         return db.collection("items").get().then((querySnapshot) => {
             const response = []
             querySnapshot.forEach((doc) => {
-                response.push(doc.data())
+                const data = doc.data()
+                data.id = doc.id
+                response.push(data)
             })
             return response;
         })
