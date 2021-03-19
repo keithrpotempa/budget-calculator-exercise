@@ -1,29 +1,34 @@
-import * as React from "react"
+import React, { useState, useEffect } from "react"
 import { Link } from "gatsby"
-import { StaticImage } from "gatsby-plugin-image"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
+import ItemList from "../components/item-list";
 
-const IndexPage = () => (
-  <Layout>
-    <SEO title="Home" />
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <StaticImage
-      src="../images/gatsby-astronaut.png"
-      width={300}
-      quality={95}
-      formats={["AUTO", "WEBP", "AVIF"]}
-      alt="A Gatsby astronaut"
-      style={{ marginBottom: `1.45rem` }}
-    />
-    <p>
-      <Link to="/page-2/">Go to page 2</Link> <br />
-      <Link to="/using-typescript/">Go to "Using TypeScript"</Link>
-    </p>
-  </Layout>
-)
+import ApiManager from "../modules/ApiManager";
+const firebase = require("firebase");
+
+require("firebase/firestore");
+
+const IndexPage = () => {
+  const [items, setItems] = useState([]);
+  
+  const getItems = () => {
+    ApiManager.getAll()
+      .then(setItems)
+  }
+
+  useEffect(() => {
+    getItems();
+  }, []) 
+
+  return (
+    <Layout>
+      <SEO title="Home" />
+      <h1>Hi people</h1>
+      <ItemList items={items} />
+    </Layout>
+  )
+}
 
 export default IndexPage
