@@ -10,10 +10,19 @@ const ItemTypeGroup = ({
 	handleRemoveSelected, 
 	selectedItems
 }) => {
+
+	const formatTypeName = () => {
+		const typeNameWords = type.split("_");
+		const formattedWords = typeNameWords.map(word => {
+		  return word[0].toUpperCase() + word.substr(1).toLowerCase()
+		})
+		return formattedWords.join(" ")
+	}
+
 	return (
 		<>
 			<Typography variant="h4">
-				{type}
+				{formatTypeName(type)}
 			</Typography>
 			<ItemList 
 				items={items} 

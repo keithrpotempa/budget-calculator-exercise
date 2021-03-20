@@ -5,6 +5,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import formatCurrency from '../helpers/format-currency';
 
 const useStyles = makeStyles({
     root: {
@@ -23,20 +24,6 @@ const ItemCard = ({
 	typeOptionSelected,
 }) => {
 	const classes = useStyles();
-    
-	const formatCurrency = (amount) => {
-		// NOTE: "The last two digits of each number are cents, meaning 60000 is equal to $600.00."
-		// So shifting the digits over by two:
-		const amountWithCents = amount / 100 
-
-		return new Intl.NumberFormat('en-US',
-			{ 
-				style: 'currency', 
-				currency: 'USD', 
-				minimumFractionDigits: 2,
-			}
-		).format(amountWithCents);
-	}
 
 	return (
 		<Card className={`${classes.root} ${selected ? classes.selected : ""}`}>

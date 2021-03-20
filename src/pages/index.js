@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import ItemTypeGroup from "../components/item-type-group";
+import PriceRange from "../components/price-range";
 import ApiManager from "../modules/ApiManager";
 import { Typography } from "@material-ui/core";
 
@@ -11,11 +12,15 @@ require("firebase/firestore");
 const IndexPage = () => {
 
   const [selectedItems, setSelectedItems] = useState([]);
-  const [itemLists, setItemLists] = useState({});
+  const [groupedItemLists, setGroupedItemLists] = useState({});
+  const [allItems, setAllItems] = useState([]);
 
   const getItems = () => {
     ApiManager.getAll()
-      .then(response => setItemLists(groupItemsByType(response)))
+      .then(response => {
+        setGroupedItemLists(groupItemsByType(response))
+        setAllItems(response)
+      })
   }
 
   const groupItemsByType = (items) => {
@@ -49,12 +54,13 @@ const IndexPage = () => {
   return (
     <Layout>
       <SEO title="Home" />
+      <PriceRange selectedItems={selectedItems} allItems={allItems}/>
       <h1>Items</h1>
       <Typography>Select up to one item from each type</Typography>
-      {Object.keys(itemLists).map(type => 
+      {Object.keys(groupedItemLists).map(type => 
         <ItemTypeGroup 
           type={type}
-          items={itemLists[type]}
+          items={groupedItemLists[type]}
           handleAddSelected={handleAddSelected}
           handleRemoveSelected={handleRemoveSelected}
           selectedItems={selectedItems}
