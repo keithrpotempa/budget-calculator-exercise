@@ -1,6 +1,6 @@
 import db from '../firebase'
 
-export default {
+const ApiManager = {
     getAll() {
         return db.collection("items").get().then((querySnapshot) => {
             const response = []
@@ -13,3 +13,5 @@ export default {
         })
     },
 }
+
+export default ApiManager
