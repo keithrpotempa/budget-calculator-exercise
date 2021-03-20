@@ -4,6 +4,7 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 import ItemTypeGroup from "../components/item-type-group";
 import ApiManager from "../modules/ApiManager";
+import { Typography } from "@material-ui/core";
 
 require("firebase/firestore");
 
@@ -48,7 +49,8 @@ const IndexPage = () => {
   return (
     <Layout>
       <SEO title="Home" />
-      <h1>Hi people</h1>
+      <h1>Items</h1>
+      <Typography>Select up to one item from each type</Typography>
       {Object.keys(itemLists).map(type => 
         <ItemTypeGroup 
           type={type}

@@ -15,41 +15,66 @@ const useStyles = makeStyles({
     },
   });
 
-const ItemCard = ({item, onAdd, onRemove, selected}) => {
-    const classes = useStyles();
+const ItemCard = ({
+	item, 
+	handleAddSelected, 
+	handleRemoveSelected, 
+	selected,
+	typeOptionSelected,
+}) => {
+	const classes = useStyles();
     
-    const formatCurrency = (amount) => {
-        // TODO:
-        // NOTE: "The last two digits of each number are cents, meaning 60000 is equal to $600.00."
+	const formatCurrency = (amount) => {
+		// NOTE: "The last two digits of each number are cents, meaning 60000 is equal to $600.00."
+		// So shifting the digits over by two:
+		const amountWithCents = amount / 100 
 
-        return new Intl.NumberFormat('en-US',
-            { 
-                style: 'currency', 
-                currency: 'USD', 
-                minimumFractionDigits: 0,
-            }
-        ).format(amount);
-    }
+		return new Intl.NumberFormat('en-US',
+			{ 
+				style: 'currency', 
+				currency: 'USD', 
+				minimumFractionDigits: 2,
+			}
+		).format(amountWithCents);
+	}
 
-    return (
-        <Card className={`${classes.root} ${selected ? classes.selected : ""}`}>
-            <CardContent>
-                <Typography variant="h5">
-                    {item.name}
-                </Typography>
-                <Typography>
-                    {item.type}
-                </Typography>
-                <Typography>
-                    {formatCurrency(item.lowPrice)} - {formatCurrency(item.highPrice)}
-                </Typography>
-            </CardContent>
-            <CardActions>
-                <Button variant="contained" onClick={() => onAdd(item)}>Add</Button>
-                <Button variant="contained" onClick={() => onRemove(item)}>Remove</Button>
-            </CardActions>
-        </Card>
-    )
+	return (
+		<Card className={`${classes.root} ${selected ? classes.selected : ""}`}>
+			<CardContent>
+				<Typography variant="h5">
+					{item.name}
+				</Typography>
+				<Typography>
+					{formatCurrency(item.lowPrice)} - {formatCurrency(item.highPrice)}
+				</Typography>
+			</CardContent>
+			<CardActions>
+				{/* If card is selected, show the remove button */}
+				{selected 
+					? (
+						<Button 
+						variant="contained" 
+						onClick={() => handleRemoveSelected(item)}
+						>
+							Remove
+						</Button>
+					)
+					/* If the type's one choice has already been selected, show no button */
+					/* Otherwise, show the add button */
+					: typeOptionSelected
+						? null
+						: (
+							<Button 
+								variant="contained" 
+								onClick={() => handleAddSelected(item)}
+							>
+								Add
+							</Button>
+						)
+				}
+			</CardActions>
+		</Card>
+	)
 }
 
 export default ItemCard;
