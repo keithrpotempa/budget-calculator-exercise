@@ -1,13 +1,17 @@
-import db from '../firebase'
+import firebase from "gatsby-plugin-firebase"
 
-export default {
+const ApiManager = {
     getAll() {
-        return db.collection("items").get().then((querySnapshot) => {
+        return firebase.firestore().collection("items").get().then((querySnapshot) => {
             const response = []
             querySnapshot.forEach((doc) => {
-                response.push(doc.data())
+                const data = doc.data()
+                data.id = doc.id
+                response.push(data)
             })
             return response;
         })
     },
 }
+
+export default ApiManager
