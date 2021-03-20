@@ -2,7 +2,7 @@ import { Typography } from "@material-ui/core";
 import React, { useState, useEffect } from "react"
 import formatCurrency from '../helpers/format-currency';
 
-const PriceRange = ({selectedItems, allItems}) => {
+const PriceRange = ({selectedItems, allItems, budget}) => {
 	const [lowPriceRange, setLowPriceRange] = useState(0);
 	const [highPriceRange, setHighPriceRange] = useState(0);
 
@@ -14,18 +14,38 @@ const PriceRange = ({selectedItems, allItems}) => {
 			newLowPriceRange += item.lowPrice
 			newHighPriceRange += item.highPrice
 		})
-		setLowPriceRange(formatCurrency(newLowPriceRange));
-		setHighPriceRange(formatCurrency(newHighPriceRange));
+		setLowPriceRange(newLowPriceRange);
+		setHighPriceRange(newHighPriceRange);
+	}
+
+	const getBudgetAssessmentMessage = () => {
+		// NOTE: Price ranges from DB have two trailing digits
+		// that must be removed if we're to compare it to the budget input
+		const lowPrice = lowPriceRange / 100
+		const highPrice = highPriceRange / 100
+
+		if (budget > lowPrice && budget > highPrice) {
+			return "Under Budget"
+		} else if (budget >= lowPrice && budget <= highPrice) {
+			return "Within Budget"
+		} else {
+			return "Over Budget"
+		}
 	}
 
 	useEffect(() => {
 		calculatePriceRange()
-	}, [selectedItems]) 
+	}, [selectedItems, budget]) 
 
 	return (
-		<Typography>
-			{lowPriceRange} - {highPriceRange}
-		</Typography>
+		<>
+			<Typography>
+				Current Selected Price Range: {formatCurrency(lowPriceRange)} - {formatCurrency(highPriceRange)}
+			</Typography>
+			<Typography>
+				{getBudgetAssessmentMessage()}
+			</Typography>
+		</>
 	)
 }
 

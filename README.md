@@ -8,7 +8,7 @@ See it live [here](https://budgetcalculatorexercise.gatsbyjs.io/).
 
 [x] Create a new repository through GitHub or Bitbucket and share it with us. We like to see your work as you progress.
 
-[ ] Start the user experience by prompting the client to enter a budget for their project
+[x] Start the user experience by prompting the client to enter a budget for their project
 
 [x] Query the budget elements from the firebase firestore collection called "items"
 
@@ -20,6 +20,6 @@ See it live [here](https://budgetcalculatorexercise.gatsbyjs.io/).
 
 [x] as well as an aggregate price range of all selected items.
 
-[ ] The application should inform the user whether their budget is over, under, or within the range of the items that they have selected.
+[x] The application should inform the user whether their budget is over, under, or within the range of the items that they have selected.
 
 [ ] (Bonus) Add functionality that allows the user to submit their checklist. Store this information however you would like in firestore, but DO NOT modify the "items" collections. Be aware that multiple candidates may be working from this database at the same time, so please prefix any collections that you create with your first and last name. Ex. benjaminRoseBudgetResponses.

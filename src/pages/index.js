@@ -5,7 +5,7 @@ import SEO from "../components/seo"
 import ItemTypeGroup from "../components/item-type-group";
 import PriceRange from "../components/price-range";
 import ApiManager from "../modules/ApiManager";
-import { Typography } from "@material-ui/core";
+import { Typography, TextField } from "@material-ui/core";
 
 require("firebase/firestore");
 
@@ -14,6 +14,7 @@ const IndexPage = () => {
   const [selectedItems, setSelectedItems] = useState([]);
   const [groupedItemLists, setGroupedItemLists] = useState({});
   const [allItems, setAllItems] = useState([]);
+  const [budget, setBudget] = useState(0);
 
   const getItems = () => {
     ApiManager.getAll()
@@ -47,6 +48,10 @@ const IndexPage = () => {
     setSelectedItems(newSelected);
   }
 
+  const handleBudgetChange = (e) => {
+    setBudget(e.target.value);
+  }
+
   useEffect(() => {
     getItems();
   }, []) 
@@ -54,11 +59,19 @@ const IndexPage = () => {
   return (
     <Layout>
       <SEO title="Home" />
-      <PriceRange selectedItems={selectedItems} allItems={allItems}/>
+      <TextField 
+        id="budget-input" 
+        label="Budget" 
+        variant="outlined"
+        type="number"
+        onChange={handleBudgetChange} 
+      />
+      <PriceRange selectedItems={selectedItems} allItems={allItems} budget={budget}/>
       <h1>Items</h1>
       <Typography>Select up to one item from each type</Typography>
       {Object.keys(groupedItemLists).map(type => 
-        <ItemTypeGroup 
+        <ItemTypeGroup
+          key={type} 
           type={type}
           items={groupedItemLists[type]}
           handleAddSelected={handleAddSelected}
