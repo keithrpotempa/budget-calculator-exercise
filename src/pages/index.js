@@ -7,7 +7,7 @@ import PriceRange from "../components/price-range";
 import ApiManager from "../modules/ApiManager";
 import { Typography, TextField } from "@material-ui/core";
 
-require("firebase/firestore");
+import "firebase/firestore";
 
 const IndexPage = () => {
 
