@@ -6,6 +6,7 @@ import ItemTypeGroup from "../components/item-type-group";
 import PriceRange from "../components/price-range";
 import ApiManager from "../modules/ApiManager";
 import { Typography, TextField } from "@material-ui/core";
+import Grid from '@material-ui/core/Grid';
 
 // import "firebase/firestore";
 
@@ -69,16 +70,20 @@ const IndexPage = () => {
       <PriceRange selectedItems={selectedItems} allItems={allItems} budget={budget}/>
       <h1>Items</h1>
       <Typography>Select up to one item from each type</Typography>
-      {Object.keys(groupedItemLists).map(type => 
-        <ItemTypeGroup
-          key={type} 
-          type={type}
-          items={groupedItemLists[type]}
-          handleAddSelected={handleAddSelected}
-          handleRemoveSelected={handleRemoveSelected}
-          selectedItems={selectedItems}
-        />
-      )}
+      <Grid container spacing={3}>
+        {Object.keys(groupedItemLists).map(type => 
+          <Grid item xs={12} md={6}>
+            <ItemTypeGroup
+              key={type} 
+              type={type}
+              items={groupedItemLists[type]}
+              handleAddSelected={handleAddSelected}
+              handleRemoveSelected={handleRemoveSelected}
+              selectedItems={selectedItems}
+            />
+          </Grid>
+        )}
+      </Grid> 
     </Layout>
   )
 }

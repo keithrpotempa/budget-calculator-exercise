@@ -1,6 +1,17 @@
 import React, { useEffect, useState } from "react"
-import ItemCard from "./item-card"
+
+import { makeStyles } from '@material-ui/core/styles';
+import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
+
+import ItemRow from "./item-row"
+
+const useStyles = makeStyles(() => ({
+	divider: {
+		backgroundColor: '#d9e2ee',
+		margin: '0 20px',
+	}
+}));
 
 const ItemList = ({
 	items, 
@@ -10,6 +21,8 @@ const ItemList = ({
 }) => {
 
 	const [typeOptionSelected, setTypeOptionSelected] = useState(false);
+
+	const styles = useStyles();
 
 	const isTypeOptionSelected = () => {
 		if (selectedItems.length > 0) {
@@ -26,19 +39,20 @@ const ItemList = ({
 
 	return (
 		<>
-			<Grid container spacing={3}>
+			{/* <Grid container spacing={3}> */}
 				{items.map(item => (
-					<Grid key={item.id} xs={6} item>
-						<ItemCard 
+					<>
+						<ItemRow 
 							item={item} 
 							handleAddSelected={handleAddSelected}
 							handleRemoveSelected={handleRemoveSelected}
 							selected={selectedItems.includes(item.id)}
 							typeOptionSelected={typeOptionSelected}
 						/>
-					</Grid>
+						<Divider variant={'middle'} className={styles.divider} />
+					</>
 				))}
-			</Grid>
+			{/* </Grid> */}
 		</>
 	)
 }
