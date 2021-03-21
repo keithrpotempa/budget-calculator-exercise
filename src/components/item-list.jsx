@@ -42,6 +42,7 @@ const ItemList = ({
 			{/* <Grid container spacing={3}> */}
 				{items.map(item => (
 					<>
+						<Divider variant={'middle'} className={styles.divider} />
 						<ItemRow 
 							item={item} 
 							handleAddSelected={handleAddSelected}
@@ -49,7 +50,6 @@ const ItemList = ({
 							selected={selectedItems.includes(item.id)}
 							typeOptionSelected={typeOptionSelected}
 						/>
-						<Divider variant={'middle'} className={styles.divider} />
 					</>
 				))}
 			{/* </Grid> */}
