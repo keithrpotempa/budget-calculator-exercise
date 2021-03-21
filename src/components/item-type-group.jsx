@@ -1,7 +1,18 @@
 import React from "react";
+import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from "@material-ui/core";
+import { Column, Row } from '@mui-treasury/components/flex';
 
 import ItemList from "./item-list";
+
+const useStyles = makeStyles(() => ({
+	card: {
+		width: '100%',
+		borderRadius: 16,
+		boxShadow: '0 8px 16px 0 #BDC9D7',
+		overflow: 'hidden',
+	},
+}));
 
 const ItemTypeGroup = ({
 	type,
@@ -10,6 +21,7 @@ const ItemTypeGroup = ({
 	handleRemoveSelected, 
 	selectedItems
 }) => {
+	const styles = useStyles();
 
 	const formatTypeName = () => {
 		const typeNameWords = type.split("_");
@@ -21,15 +33,19 @@ const ItemTypeGroup = ({
 
 	return (
 		<>
-			<Typography variant="h4">
-				{formatTypeName(type)}
-			</Typography>
-			<ItemList 
-				items={items} 
-				handleAddSelected={handleAddSelected}
-				handleRemoveSelected={handleRemoveSelected}
-				selectedItems={selectedItems}
-			/>
+			<Column p={0} m={0} gap={0} className={styles.card}>
+				<Row wrap p={2} alignItems={'baseline'} className={styles.header}>					
+					<Typography variant="h5">
+						{formatTypeName(type)}
+					</Typography>
+				</Row>
+				<ItemList 
+					items={items} 
+					handleAddSelected={handleAddSelected}
+					handleRemoveSelected={handleRemoveSelected}
+					selectedItems={selectedItems}
+				/>
+			</Column>
 		</>
 	)
 }

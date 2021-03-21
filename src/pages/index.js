@@ -3,11 +3,10 @@ import React, { useState, useEffect } from "react"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import ItemTypeGroup from "../components/item-type-group";
-import PriceRange from "../components/price-range";
+import PriceCalc from "../components/price-calc";
 import ApiManager from "../modules/ApiManager";
-import { Typography, TextField } from "@material-ui/core";
-
-// import "firebase/firestore";
+import { Typography } from "@material-ui/core";
+import Grid from '@material-ui/core/Grid';
 
 const IndexPage = () => {
 
@@ -48,10 +47,6 @@ const IndexPage = () => {
     setSelectedItems(newSelected);
   }
 
-  const handleBudgetChange = (e) => {
-    setBudget(e.target.value);
-  }
-
   useEffect(() => {
     getItems();
   }, []) 
@@ -59,26 +54,37 @@ const IndexPage = () => {
   return (
     <Layout>
       <SEO title="Home" />
-      <TextField 
-        id="budget-input" 
-        label="Budget" 
-        variant="outlined"
-        type="number"
-        onChange={handleBudgetChange} 
-      />
-      <PriceRange selectedItems={selectedItems} allItems={allItems} budget={budget}/>
-      <h1>Items</h1>
-      <Typography>Select up to one item from each type</Typography>
-      {Object.keys(groupedItemLists).map(type => 
-        <ItemTypeGroup
-          key={type} 
-          type={type}
-          items={groupedItemLists[type]}
-          handleAddSelected={handleAddSelected}
-          handleRemoveSelected={handleRemoveSelected}
-          selectedItems={selectedItems}
-        />
-      )}
+      <Grid 
+        container 
+        direction="row"
+        spacing={3} 
+        alignItems="stretch"
+      >
+        <Grid item xs={12}>
+          <PriceCalc 
+            selectedItems={selectedItems} 
+            allItems={allItems} 
+            budget={budget}
+            setBudget={setBudget}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <h1>Items</h1>
+          <Typography>Select up to one item from each type</Typography>
+        </Grid>
+        {Object.keys(groupedItemLists).map(type => 
+          <Grid item xs={12} md={6}>
+            <ItemTypeGroup
+              key={type} 
+              type={type}
+              items={groupedItemLists[type]}
+              handleAddSelected={handleAddSelected}
+              handleRemoveSelected={handleRemoveSelected}
+              selectedItems={selectedItems}
+            />
+          </Grid>
+        )}
+      </Grid> 
     </Layout>
   )
 }

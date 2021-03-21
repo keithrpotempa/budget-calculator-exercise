@@ -6,6 +6,9 @@
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
     "@material-ui/core": "^4.11.3",
+    "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.57",
+    "@mui-treasury/components": "^1.10.1",
     "firebase": "^8.3.1",
     "gatsby": "^3.0.1",
     "gatsby-plugin-firebase": "^0.2.0-beta.4",
