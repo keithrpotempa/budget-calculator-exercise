@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react"
 
 import { makeStyles } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
-import Grid from '@material-ui/core/Grid';
 
 import ItemRow from "./item-row"
 
@@ -39,7 +38,6 @@ const ItemList = ({
 
 	return (
 		<>
-			{/* <Grid container spacing={3}> */}
 				{items.map(item => (
 					<>
 						<Divider variant={'middle'} className={styles.divider} />
@@ -52,7 +50,6 @@ const ItemList = ({
 						/>
 					</>
 				))}
-			{/* </Grid> */}
 		</>
 	)
 }
